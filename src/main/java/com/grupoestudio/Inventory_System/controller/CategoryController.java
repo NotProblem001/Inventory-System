@@ -1,4 +1,4 @@
-package com.grupoestudio.Inventory_System.service;
+package com.grupoestudio.Inventory_System.controller;
 
 import java.util.List;
 
