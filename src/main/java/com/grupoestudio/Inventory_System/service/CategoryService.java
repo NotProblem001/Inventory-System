@@ -17,20 +17,20 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> findall(){
+    public List<Category> findallCategory(){
         return categoryRepository.findAll();
     }
 
-    public Category findById(Long id){
-        return categoryRepository.findById(id).orElseThrow(()-> new RuntimeException("Category not found"));
+    public Category findByIdCategory(Long idCategory){
+        return categoryRepository.findById(idCategory).orElseThrow(()-> new RuntimeException("Category not found"));
     }
 
-    public Category save(Category category){
+    public Category saveCategory(Category category){
         return categoryRepository.save(category);
     }
 
-    public void deleteById(Long id){
-        categoryRepository.deleteById(id);
+    public void deleteByIdCategory(Long idCategory){
+        categoryRepository.deleteById(idCategory);
     }
 
     

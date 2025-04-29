@@ -1,6 +1,7 @@
 package com.grupoestudio.Inventory_System.controller;
 
-import java.util.List;
+import com.grupoestudio.Inventory_System.model.Category;
+import com.grupoestudio.Inventory_System.service.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.grupoestudio.Inventory_System.model.Category;
-import com.grupoestudio.Inventory_System.service.CategoryService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/categories")
@@ -26,42 +27,42 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<Category>> listAllCategories(){
-        List<Category> categories = categoryService.findall();
+        List<Category> categories = categoryService.findallCategory();
         return categories.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(categories); //operador ternario
     }
 
     @PostMapping
     public ResponseEntity<Category> saveCategory(@RequestBody Category newCategory){
-        Category category = categoryService.save(newCategory);
+        Category category = categoryService.saveCategory(newCategory);
         return ResponseEntity.status(HttpStatus.CREATED).body(newCategory);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Category> findById(@PathVariable Long id){
+    @GetMapping("/{idCategory}")
+    public ResponseEntity<Category> findByIdCategory(@PathVariable Long idCategory){
         try {
-            Category category = categoryService.findById(id);
+            Category category = categoryService.findByIdCategory(idCategory);
             return ResponseEntity.ok(category);
         }catch (Exception e){
             return ResponseEntity.notFound().build();
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category){
+    @PutMapping("/{idCategory}")
+    public ResponseEntity<Category> updateCategory(@PathVariable Long idCategory, @RequestBody Category category){
         try{
-            Category existingCategory = categoryService.findById(id);
-            category.setId(id);
-            Category updateCategory = categoryService.save(category);
+            Category existingCategory = categoryService.findByIdCategory(idCategory);
+            category.setIdCategory(idCategory);
+            Category updateCategory = categoryService.saveCategory(category);
             return ResponseEntity.ok(updateCategory);
         } catch (Exception e){
             return ResponseEntity.notFound().build();
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Long id){
+    @DeleteMapping("/{idCategory}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long idCategory){
         try {
-            categoryService.deleteById(id);
+            categoryService.deleteByIdCategory(idCategory);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
