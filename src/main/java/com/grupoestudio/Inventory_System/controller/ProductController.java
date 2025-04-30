@@ -36,21 +36,21 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
     }
 
-    @GetMapping("/{idProduct}")
-    public ResponseEntity<Product> findByIdProduct(@PathVariable Long idProduct){
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> findByIdProduct(@PathVariable Long id){
         try {
-            Product product = productService.findByIdProduct(idProduct);
+            Product product = productService.findById(id);
             return ResponseEntity.ok(product);
         } catch (Exception e){
             return ResponseEntity.notFound().build();
         }
     }
 
-    @PutMapping("/{idProduct}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long idProduct, @RequestBody Product product){
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product){
         try{
-            Product existingProduct = productService.findByIdProduct(idProduct);
-            product.setIdProduct(idProduct);
+            Product existingProduct = productService.findById(id);
+            product.setId(id);
             Product updateProduct = productService.saveProduct(product);
             return ResponseEntity.ok(updateProduct);
         } catch (Exception e){
@@ -58,10 +58,10 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/{idProduct}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long idProduct){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id){
         try {
-            productService.deleteByIdProduct(idProduct);
+            productService.deleteById(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

@@ -13,26 +13,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "product")
+@Table(name = "inventoryMovement")
 @Data
 @NoArgsConstructor
-public class Product {
+public class InventoryMovement {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(nullable = false, unique = true)
-    private String nameProduct;
-
-    @Column(nullable = false)
-    private double price;
-
-    @Column(nullable = false)
-    private int stock;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "category", nullable = false)
-    private Category category;
+    @JoinColumn(name = "product")
+    private Product product;
+
+    @Column(nullable = false)
+    private int quantity;
+    
+    @Column(nullable = false)
+    private String type; //entrada o salida de stock lol
+
+    @Column(nullable = false)
+    private String date;
 
 }

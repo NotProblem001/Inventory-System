@@ -21,15 +21,15 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product findByIdProduct(Long idProduct){
-        return productRepository.findById(idProduct).orElseThrow(()-> new RuntimeException("Product not found"));
+    public Product findById(Long id){
+        return productRepository.findById(id).orElseThrow(()-> new RuntimeException("Product not found"));
     }
 
     public Product saveProduct(Product product){
         return productRepository.save(product);
     }
 
-    public void deleteByIdProduct(Long idProduct){
-        productRepository.deleteById(idProduct);
+    public void deleteById(Long id){
+        productRepository.deleteById(id);
     }
 }

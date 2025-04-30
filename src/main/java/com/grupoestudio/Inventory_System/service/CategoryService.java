@@ -21,16 +21,16 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public Category findByIdCategory(Long idCategory){
-        return categoryRepository.findById(idCategory).orElseThrow(()-> new RuntimeException("Category not found"));
+    public Category findById(Long id){
+        return categoryRepository.findById(id).orElseThrow(()-> new RuntimeException("Category not found"));
     }
 
     public Category saveCategory(Category category){
         return categoryRepository.save(category);
     }
 
-    public void deleteByIdCategory(Long idCategory){
-        categoryRepository.deleteById(idCategory);
+    public void deleteById(Long id){
+        categoryRepository.deleteById(id);
     }
 
     

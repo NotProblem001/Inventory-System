@@ -38,9 +38,9 @@ public class CategoryController {
     }
 
     @GetMapping("/{idCategory}")
-    public ResponseEntity<Category> findByIdCategory(@PathVariable Long idCategory){
+    public ResponseEntity<Category> findByIdCategory(@PathVariable Long id){
         try {
-            Category category = categoryService.findByIdCategory(idCategory);
+            Category category = categoryService.findById(id);
             return ResponseEntity.ok(category);
         }catch (Exception e){
             return ResponseEntity.notFound().build();
@@ -48,10 +48,10 @@ public class CategoryController {
     }
 
     @PutMapping("/{idCategory}")
-    public ResponseEntity<Category> updateCategory(@PathVariable Long idCategory, @RequestBody Category category){
+    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category){
         try{
-            Category existingCategory = categoryService.findByIdCategory(idCategory);
-            category.setIdCategory(idCategory);
+            Category existingCategory = categoryService.findById(id);
+            category.setId(id);
             Category updateCategory = categoryService.saveCategory(category);
             return ResponseEntity.ok(updateCategory);
         } catch (Exception e){
@@ -60,9 +60,9 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{idCategory}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Long idCategory){
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id){
         try {
-            categoryService.deleteByIdCategory(idCategory);
+            categoryService.deleteById(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
