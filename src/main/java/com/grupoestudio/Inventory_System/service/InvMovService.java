@@ -42,8 +42,6 @@ public class InvMovService {
         }else if (invMov.getType().equals("SALIDA")) {
             if (currentStock < invMov.getQuantity()) {
                 throw new RuntimeException("Te falta stock wn");
-            } else if (currentStock > invMov.getQuantity()){
-                throw new RuntimeException("Te sobra stock wn");
             }
             
             product.setStock(currentStock - invMov.getQuantity());
@@ -58,4 +56,20 @@ public class InvMovService {
         invMovRepository.deleteById(id);
     }
 
+    public void transferStock(Long sourceProductId, Long targetProductId, int quantity) {
+        Product sourceProduct = productRepository.findById(sourceProductId).orElseThrow(() -> new RuntimeException("Source product not found"));
+        Product targetProduct = productRepository.findById(targetProductId).orElseThrow(() -> new RuntimeException("Target product not found"));
+
+        if (sourceProduct.getStock() < quantity) {
+            throw new RuntimeException("Insufficient stock in source product");
+        }else if (quantity <= 0) {
+            throw new RuntimeException("Quantity must be greater than zero");
+        }
+
+        sourceProduct.setStock(sourceProduct.getStock() - quantity);
+        targetProduct.setStock(targetProduct.getStock() + quantity);
+
+        productRepository.save(sourceProduct);
+        productRepository.save(targetProduct);
+    }
 }

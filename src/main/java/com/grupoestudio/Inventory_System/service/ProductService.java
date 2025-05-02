@@ -32,4 +32,9 @@ public class ProductService {
     public void deleteById(Long id){
         productRepository.deleteById(id);
     }
+
+    public double calculateTotalValue(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        return product.getPrice() * product.getStock();
+    }
 }

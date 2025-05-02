@@ -68,5 +68,15 @@ public class CategoryController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/low-stock/{idCategory}/{minStock}")
+    public ResponseEntity<Boolean> hasLowStock(@PathVariable Long idCategory, @PathVariable int minStock) {
+        try {
+            boolean hasLowStock = categoryService.hasLowStock(idCategory, minStock);
+            return ResponseEntity.ok(hasLowStock);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
 
