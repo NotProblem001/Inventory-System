@@ -68,7 +68,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/totalValue/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Double> calculateTotalValue(@PathVariable Long id) {
         try {
             double totalValue = productService.calculateTotalValue(id);

@@ -1,7 +1,7 @@
 package com.grupoestudio.Inventory_System.service;
 
 import java.util.List;
-
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +58,7 @@ public class InvMovService {
 
     public void transferStock(Long sourceProductId, Long targetProductId, int quantity) {
         Product sourceProduct = productRepository.findById(sourceProductId).orElseThrow(() -> new RuntimeException("Source product not found"));
+
         Product targetProduct = productRepository.findById(targetProductId).orElseThrow(() -> new RuntimeException("Target product not found"));
 
         if (sourceProduct.getStock() < quantity) {
@@ -66,10 +67,27 @@ public class InvMovService {
             throw new RuntimeException("Quantity must be greater than zero");
         }
 
+        InventoryMovement exitMovement = new InventoryMovement();
+
+        exitMovement.setProduct(sourceProduct);
+        exitMovement.setQuantity(quantity);
+        exitMovement.setType("SALIDA");
+        exitMovement.setDate(new Date());
         sourceProduct.setStock(sourceProduct.getStock() - quantity);
+
+        InventoryMovement entryMovement = new InventoryMovement(); 
+        
+        entryMovement.setProduct(targetProduct);
+        entryMovement.setQuantity(quantity);
+        entryMovement.setType("ENTRADA");
+        entryMovement.setDate(new Date());
         targetProduct.setStock(targetProduct.getStock() + quantity);
 
+        invMovRepository.save(exitMovement);
+        invMovRepository.save(entryMovement);
         productRepository.save(sourceProduct);
         productRepository.save(targetProduct);
-    }
+        
+    }   
+
 }

@@ -1,5 +1,7 @@
 package com.grupoestudio.Inventory_System.model;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +35,6 @@ public class InventoryMovement {
     private String type; //entrada o salida de stock lol
 
     @Column(nullable = false)
-    private String date;
+    private Date date;
 
 }

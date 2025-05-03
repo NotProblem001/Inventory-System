@@ -33,8 +33,8 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
 
-    public boolean hasLowStock(Long categoryId, int minStock) {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException("Category not found"));
+    public boolean hasLowStock(Long Id, int minStock) {
+        Category category = categoryRepository.findById(Id).orElseThrow(() -> new RuntimeException("Category not found"));
     
         return category.getProducts().stream().anyMatch(product -> product.getStock() < minStock);
     }
