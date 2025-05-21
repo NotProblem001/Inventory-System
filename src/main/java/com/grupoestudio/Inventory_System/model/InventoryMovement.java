@@ -37,4 +37,12 @@ public class InventoryMovement {
     @Column(nullable = false)
     private Date date;
 
+    public void createInvMov(Product product, int quantity, String type, Date date){
+
+        this.product = product;
+        this.quantity = quantity;
+        this.type = type;
+        this.date = new Date();
+    }
+
 }
